@@ -8,7 +8,9 @@ Kostenloser Nachfrage-Test für ein produktisiertes B2B-Angebot rund um Paperles
 - Kontaktaufnahme über Telegram-Bot als bewusster Nutzer-Schritt
 
 ## Dateien
-- `index.html` – öffentliche Landingpage
+- `index.html` – öffentliche Landingpage, Variante 1 (sachlich / vertrauensstark)
+- `index-v2.html` – öffentliche Landingpage, Variante 2 (problemorientierter / direkter)
+- `publish-kit.md` – fertige Texte und Einsatzempfehlungen für Veröffentlichungskanäle
 
 ## CTA-Mechanik
 1. Besucher füllt das Formular aus.
