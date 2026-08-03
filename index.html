@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dokumenten-Workflow-Check für kleine Teams</title>
+  <meta name="description" content="Kostenloser 15-Minuten-Check: Wie kleine Teams Belege, Rechnungen und PDFs sauber digitalisieren, finden und ablegen können." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --surface: #121933;
+      --surface-2: #192246;
+      --text: #f4f7fb;
+      --muted: #a7b3cf;
+      --line: #2a3767;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --good: #86efac;
+      --warn: #fde68a;
+      --shadow: 0 20px 60px rgba(0,0,0,.28);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(56,189,248,.18), transparent 30%),
+        linear-gradient(180deg, #0a0f1e 0%, #0b1020 48%, #0e1530 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(16px);
+      background: rgba(11,16,32,.68);
+      border-bottom: 1px solid rgba(167,179,207,.12);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 72px; gap: 20px;
+    }
+    .brand { font-weight: 700; letter-spacing: .01em; }
+    .nav-links { display: flex; gap: 18px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+    .nav-links a { text-decoration: none; }
+    .cta, button {
+      appearance: none; border: 0; cursor: pointer;
+      border-radius: 999px; font-weight: 700; font-size: 15px;
+      padding: 14px 20px; transition: .18s ease;
+    }
+    .cta-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #082033; box-shadow: 0 10px 30px rgba(56,189,248,.24);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+    }
+    .cta-secondary {
+      background: transparent; color: var(--text); border: 1px solid var(--line);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+    }
+    .cta:hover, button:hover { transform: translateY(-1px); }
+    .hero {
+      padding: 72px 0 48px;
+      display: grid; gap: 28px; grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex; gap: 8px; align-items: center;
+      padding: 8px 12px; border-radius: 999px;
+      color: var(--accent); background: rgba(125,211,252,.09);
+      border: 1px solid rgba(125,211,252,.15); font-size: 13px; font-weight: 700;
+    }
+    h1 {
+      margin: 16px 0 14px; font-size: clamp(36px, 6vw, 62px); line-height: .98;
+      letter-spacing: -0.04em; max-width: 11ch;
+    }
+    .lead { color: var(--muted); font-size: clamp(18px, 2vw, 21px); max-width: 62ch; }
+    .hero-points {
+      margin: 26px 0 0; padding: 0; list-style: none;
+      display: grid; gap: 12px;
+    }
+    .hero-points li {
+      display: flex; gap: 12px; align-items: flex-start; color: var(--text);
+    }
+    .hero-points span {
+      flex: 0 0 28px; height: 28px; border-radius: 50%;
+      display: inline-grid; place-items: center; background: rgba(134,239,172,.12); color: var(--good);
+      font-size: 13px; font-weight: 900;
+    }
+    .hero-card, .card {
+      background: linear-gradient(180deg, rgba(25,34,70,.95), rgba(18,25,51,.94));
+      border: 1px solid rgba(167,179,207,.12); border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-card { padding: 24px; }
+    .hero-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px;
+    }
+    .metric {
+      padding: 16px; border-radius: var(--radius-sm); background: rgba(255,255,255,.03); border: 1px solid rgba(167,179,207,.1);
+    }
+    .metric strong { display: block; font-size: 28px; margin-bottom: 4px; }
+    .metric small { color: var(--muted); }
+    section { padding: 26px 0 24px; }
+    .section-head { display: grid; gap: 10px; max-width: 760px; margin-bottom: 24px; }
+    h2 { margin: 0; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.03em; }
+    .muted { color: var(--muted); }
+    .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 22px; }
+    .card h3 { margin: 0 0 10px; font-size: 20px; }
+    .card p { margin: 0; color: var(--muted); }
+    .offer {
+      display: grid; gap: 18px; grid-template-columns: 1fr 1fr;
+    }
+    .offer .card ul { margin: 16px 0 0; padding-left: 18px; color: var(--muted); }
+    .process {
+      counter-reset: step; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .process .card { position: relative; padding-top: 54px; }
+    .process .card::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; top: 18px; left: 18px; width: 28px; height: 28px;
+      display: grid; place-items: center; border-radius: 50%;
+      background: rgba(125,211,252,.12); color: var(--accent); font-weight: 800;
+    }
+    form { display: grid; gap: 14px; }
+    .field { display: grid; gap: 6px; }
+    label { font-weight: 600; font-size: 14px; }
+    input, textarea, select {
+      width: 100%; border-radius: 14px; border: 1px solid var(--line); background: rgba(255,255,255,.02);
+      color: var(--text); padding: 14px 15px; font: inherit;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .consent {
+      display: flex; gap: 10px; align-items: flex-start; color: var(--muted); font-size: 14px;
+      border: 1px solid rgba(167,179,207,.12); border-radius: 14px; padding: 14px;
+      background: rgba(255,255,255,.02);
+    }
+    .consent input { width: 18px; height: 18px; margin-top: 2px; }
+    .result {
+      display: none; margin-top: 18px; padding: 18px; border-radius: 16px;
+      border: 1px solid rgba(125,211,252,.15); background: rgba(125,211,252,.08);
+    }
+    .result.active { display: block; }
+    .result pre {
+      white-space: pre-wrap; background: rgba(8,12,24,.45); border-radius: 12px; padding: 14px; overflow: auto;
+      border: 1px solid rgba(167,179,207,.12);
+    }
+    .small { font-size: 14px; color: var(--muted); }
+    .faq { display: grid; gap: 12px; }
+    details {
+      border: 1px solid rgba(167,179,207,.12); border-radius: 14px; padding: 16px 18px; background: rgba(255,255,255,.02);
+    }
+    summary { cursor: pointer; font-weight: 700; }
+    footer { padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+    .foot-grid { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    @media (max-width: 940px) {
+      .hero, .offer { grid-template-columns: 1fr; }
+      .three, .process { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav-inner { padding: 10px 0; }
+      .nav-links { display: none; }
+      .hero { padding-top: 42px; }
+      .three, .process, .hero-grid { grid-template-columns: 1fr; }
+      h1 { max-width: 100%; }
+      .foot-grid { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">Dokumenten-Workflow-Check</div>
+      <div class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#angebot">Angebot</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+      <a class="cta cta-primary" href="#kontakt">Kostenlosen Check anfragen</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Kostenloser Nachfrage-Test · 15 Minuten · unverbindlich</div>
+        <h1>Belege, Rechnungen und PDFs endlich sauber im Griff.</h1>
+        <p class="lead">Ich zeige kleinen Teams, wie sie ihren Dokumenten-Workflow mit Paperless-ngx, OCR und klaren Abläufen schneller, suchbarer und stressfreier machen können — ohne großes IT-Projekt.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:26px;">
+          <a class="cta cta-primary" href="#kontakt">Jetzt kostenlosen Check starten</a>
+          <a class="cta cta-secondary" href="#ablauf">So läuft es ab</a>
+        </div>
+        <ul class="hero-points">
+          <li><span>✓</span><div>Ideal für kleine Unternehmen, Büros, Handwerksbetriebe und Teams mit zu vielen PDFs im Posteingang.</div></li>
+          <li><span>✓</span><div>Keine Software-Verpflichtung: erst Bedarf prüfen, dann nur bei echtem Nutzen umsetzen.</div></li>
+          <li><span>✓</span><div>Datensparsam: Auf dieser Seite wird nichts übertragen, bis jemand aktiv den Telegram-Kontakt startet.</div></li>
+        </ul>
+      </div>
+      <aside class="hero-card">
+        <div class="muted" style="font-size:14px; text-transform:uppercase; letter-spacing:.08em;">Worum es konkret geht</div>
+        <div class="hero-grid">
+          <div class="metric"><strong>5–10h</strong><small>typische Such- und Ablagezeit pro Monat, die oft vermeidbar ist</small></div>
+          <div class="metric"><strong>1 Ort</strong><small>für Eingangsrechnungen, Verträge, Belege und Scans</small></div>
+          <div class="metric"><strong>OCR</strong><small>damit Dokumente nach Inhalt statt nur nach Dateinamen auffindbar werden</small></div>
+          <div class="metric"><strong>Klarer Ablauf</strong><small>statt WhatsApp-Fotos, Downloads-Ordnern und Doppelablagen</small></div>
+        </div>
+        <p class="small" style="margin-top:16px;">Der erste Schritt ist bewusst klein: ein kostenloser Check, ob sich eine strukturierte Lösung bei euch überhaupt lohnt.</p>
+      </aside>
+    </section>
+
+    <section id="problem">
+      <div class="section-head">
+        <h2>Wenn Dokumente überall liegen, kostet das täglich Fokus.</h2>
+        <div class="muted">Der Check ist für Teams gedacht, die ihre Ablage nicht neu erfinden wollen — sondern einen einfachen, funktionierenden Standard brauchen.</div>
+      </div>
+      <div class="three">
+        <div class="card"><h3>Rechnungen kommen über fünf Kanäle</h3><p>E-Mail, Scanner, Handyfotos, Downloads, Messenger. Niemand weiß sicher, was schon abgelegt oder bezahlt wurde.</p></div>
+        <div class="card"><h3>Suche dauert zu lange</h3><p>Dokumente existieren zwar digital, aber nicht wirklich auffindbar — weil Dateinamen, Ordner und Standards fehlen.</p></div>
+        <div class="card"><h3>Kein klarer Verantwortlicher</h3><p>Der Workflow lebt im Kopf einzelner Personen. Sobald jemand ausfällt, stockt die Bearbeitung.</p></div>
+      </div>
+    </section>
+
+    <section id="angebot">
+      <div class="section-head">
+        <h2>Das Angebot für den Test: ein kostenloser Dokumenten-Workflow-Check.</h2>
+        <div class="muted">Kein Verkaufsgespräch mit Druck. Ziel ist nur herauszufinden, ob ein standardisierter Workflow bei euch Zeit spart und wie ein sinnvoller erster Schritt aussehen würde.</div>
+      </div>
+      <div class="offer">
+        <div class="card">
+          <h3>Was du im Check bekommst</h3>
+          <ul>
+            <li>eine kurze Einschätzung eurer aktuellen Ablage-Situation</li>
+            <li>3 konkrete Hebel mit der größten Zeit- oder Suchwirkung</li>
+            <li>eine ehrliche Empfehlung, ob Paperless-ngx + OCR bei euch sinnvoll ist</li>
+            <li>einen realistischen nächsten Schritt statt einer Großbaustelle</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Was explizit nicht passiert</h3>
+          <ul>
+            <li>keine automatische Datenerfassung auf dieser Seite</li>
+            <li>keine Bindung, kein Abo, kein Zahlungszwang</li>
+            <li>keine Weitergabe von Kontaktdaten an Dritte</li>
+            <li>kein Technik-Overkill, wenn ein einfacher Prozess reicht</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="ablauf">
+      <div class="section-head">
+        <h2>So läuft der kostenlose Nachfrage-Test ab.</h2>
+        <div class="muted">Einfach, schnell und ohne Backend: Die Angaben bleiben lokal im Browser, bis jemand bewusst den Telegram-Kontakt startet.</div>
+      </div>
+      <div class="process">
+        <div class="card"><h3>1. Kurz einordnen</h3><p>Ein paar Felder ausfüllen: Branche, Teamgröße, größter Dokumenten-Schmerzpunkt.</p></div>
+        <div class="card"><h3>2. Zusammenfassung erzeugen</h3><p>Die Seite erstellt lokal eine kompakte Anfrage-Zusammenfassung. Nichts wird automatisch gesendet.</p></div>
+        <div class="card"><h3>3. Telegram-Bot öffnen</h3><p>Mit einem Klick öffnet sich der Kontakt-Bot für den Nachfrage-Test.</p></div>
+        <div class="card"><h3>4. Nachricht senden</h3><p>Die kopierte Zusammenfassung einfach einfügen. Danach kann der Check manuell terminiert werden.</p></div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="section-head">
+        <h2>Interesse vormerken</h2>
+        <div class="muted">Datensparsame Variante: Die Seite verarbeitet deine Angaben nur lokal im Browser. Übertragen wird erst etwas, wenn du aktiv den Telegram-Kontakt öffnest und die kopierte Zusammenfassung selbst sendest.</div>
+      </div>
+      <div class="offer">
+        <div class="card">
+          <form id="interest-form">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Max Mustermann" required />
+            </div>
+            <div class="field">
+              <label for="company">Firma / Team</label>
+              <input id="company" name="company" placeholder="Muster GmbH" required />
+            </div>
+            <div class="field">
+              <label for="size">Teamgröße</label>
+              <select id="size" name="size" required>
+                <option value="">Bitte wählen</option>
+                <option>1–3 Personen</option>
+                <option>4–10 Personen</option>
+                <option>11–25 Personen</option>
+                <option>26+ Personen</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="pain">Größter Schmerzpunkt</label>
+              <textarea id="pain" name="pain" placeholder="Z. B. Rechnungen liegen in mehreren Postfächern, PDFs sind nicht durchsuchbar, niemand weiß, was schon abgelegt wurde." required></textarea>
+            </div>
+            <div class="field">
+              <label for="docs">Welche Dokumente sind am wichtigsten?</label>
+              <input id="docs" name="docs" placeholder="z. B. Rechnungen, Verträge, Lieferscheine, Eingangsbelege" />
+            </div>
+            <label class="consent">
+              <input type="checkbox" id="consent" required />
+              <span>Ich möchte den kostenlosen Dokumenten-Workflow-Check anfragen und weiß, dass diese Seite meine Angaben erst überträgt, wenn ich den Telegram-Kontakt bewusst selbst öffne und die Nachricht absende.</span>
+            </label>
+            <button class="cta cta-primary" type="submit">Zusammenfassung erzeugen</button>
+          </form>
+        </div>
+        <div class="card">
+          <h3>Was nach dem Klick passiert</h3>
+          <p class="muted">Nach dem Absenden erzeugt die Seite eine lokale Text-Zusammenfassung. Du kannst sie kopieren und dann direkt den Telegram-Bot für den Test öffnen.</p>
+          <div id="result" class="result" aria-live="polite">
+            <strong>Fertig — lokale Anfrage-Zusammenfassung</strong>
+            <pre id="summary"></pre>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px;">
+              <button id="copyBtn" class="cta cta-secondary" type="button">Zusammenfassung kopieren</button>
+              <a id="telegramBtn" class="cta cta-primary" href="https://t.me/FloriHermesbot?start=docflow-check" target="_blank" rel="noopener">Telegram-Bot öffnen</a>
+            </div>
+            <p class="small" style="margin-top:12px;">Tipp: Erst auf <strong>Zusammenfassung kopieren</strong> klicken, dann den Bot öffnen und den Text dort einfügen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Häufige Fragen</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Ist das schon ein fertiges Produkt?</summary><p class="muted">Noch nicht. Das ist bewusst ein Nachfrage-Test mit einem klaren, kleinen Angebot: kostenlos prüfen, ob der Workflow-Ansatz für dein Team sinnvoll wäre.</p></details>
+        <details><summary>Warum Telegram statt klassischem Webformular?</summary><p class="muted">Für den Test ist das die einfachste kostenlose Lösung ohne extra Backend. Die Seite sammelt nichts serverseitig, bis du selbst den Kontakt startest.</p></details>
+        <details><summary>Für wen ist das eher nichts?</summary><p class="muted">Für Konzerne mit komplexer Compliance-Landschaft oder Teams, die bereits ein sehr gut funktionierendes DMS mit klaren Prozessen haben.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot-grid">
+      <div>Dokumenten-Workflow-Check · kostenloser Nachfrage-Test</div>
+      <div>Kontakt über Telegram-Bot: <a href="https://t.me/FloriHermesbot?start=docflow-check" target="_blank" rel="noopener">@FloriHermesbot</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('interest-form');
+    const result = document.getElementById('result');
+    const summary = document.getElementById('summary');
+    const copyBtn = document.getElementById('copyBtn');
+    const telegramBtn = document.getElementById('telegramBtn');
+
+    function buildSummary(data) {
+      return [
+        'Anfrage: Kostenloser Dokumenten-Workflow-Check',
+        'Kampagne: docflow-check-2026-08',
+        'Name: ' + data.name,
+        'Firma/Team: ' + data.company,
+        'Teamgröße: ' + data.size,
+        'Wichtigste Dokumente: ' + (data.docs || 'nicht angegeben'),
+        'Größter Schmerzpunkt: ' + data.pain,
+        '',
+        'Bitte um kurze Rückmeldung für den kostenlosen 15-Minuten-Check.'
+      ].join('\n');
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const text = buildSummary(data);
+      summary.textContent = text;
+      result.classList.add('active');
+      try { localStorage.setItem('docflow-check-draft', text); } catch (_) {}
+      telegramBtn.href = 'https://t.me/FloriHermesbot?start=docflow-check';
+      result.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = summary.textContent.trim();
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = 'Kopiert';
+        setTimeout(() => copyBtn.textContent = 'Zusammenfassung kopieren', 1500);
+      } catch (_) {
+        copyBtn.textContent = 'Bitte manuell kopieren';
+      }
+    });
+
+    try {
+      const saved = localStorage.getItem('docflow-check-draft');
+      if (saved) {
+        summary.textContent = saved;
+        result.classList.add('active');
+      }
+    } catch (_) {}
+  </script>
+</body>
+</html>
