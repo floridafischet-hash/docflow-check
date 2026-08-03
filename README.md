@@ -1,4 +1,4 @@
-# Dokumenten-Workflow-Check
+# F&F Investments – Dokumenten-Workflow-Check
 
 Kostenloser Nachfrage-Test für ein produktisiertes B2B-Angebot rund um Paperless-ngx, OCR und strukturierte Dokumentenablage.
 
@@ -10,6 +10,7 @@ Kostenloser Nachfrage-Test für ein produktisiertes B2B-Angebot rund um Paperles
 ## Dateien
 - `index.html` – öffentliche Landingpage, Variante 1 (sachlich / vertrauensstark)
 - `index-v2.html` – öffentliche Landingpage, Variante 2 (problemorientierter / direkter)
+- `v2/index.html` – gleiche Variante 2 unter sauberer GitHub-Pages-URL `/v2/`
 - `publish-kit.md` – fertige Texte und Einsatzempfehlungen für Veröffentlichungskanäle
 
 ## CTA-Mechanik

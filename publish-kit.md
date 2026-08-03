@@ -1,14 +1,14 @@
-# Publish Kit – Dokumenten-Workflow-Check
+# Publish Kit – F&F Investments
 
 ## Ziel
 Kostenlosen Nachfrage-Test für ein produktisiertes B2B-Angebot veröffentlichen und die ersten qualifizierten Gespräche strukturiert einsammeln.
 
 ## Live-URLs
 - Variante 1: `https://floridafischet-hash.github.io/docflow-check/`
-- Variante 2: `https://floridafischet-hash.github.io/docflow-check/index-v2.html`
+- Variante 2: `https://floridafischet-hash.github.io/docflow-check/v2/`
 
 ## CTA / Tracking-Grundlage
-- Bot: `@FloriHermesbot`
+- Bot: Telegram-Kontakt von F&F Investments (`@FloriHermesbot` technisch unverändert)
 - Start-Link: `https://t.me/FloriHermesbot?start=docflow-check`
 - Kampagnenkennung Variante 1: `docflow-check-2026-08`
 - Kampagnenkennung Variante 2: `docflow-check-2026-08-v2`
@@ -32,7 +32,7 @@ Einen kostenlosen 15-Minuten-Dokumenten-Workflow-Check für kleine Teams.
 Ziel: ehrlich prüfen, ob ein einfacher Paperless-/OCR-Workflow bei euch wirklich Entlastung bringen würde – ohne Verkaufsdruck und ohne großes IT-Projekt.
 
 Wenn das für euch relevant klingt:
-👉 https://floridafischet-hash.github.io/docflow-check/index-v2.html
+👉 https://floridafischet-hash.github.io/docflow-check/v2/
 
 Ich suche bewusst die ersten echten Gespräche, um das Angebot sauber zu schärfen.
 
@@ -54,7 +54,7 @@ Hey, ich teste gerade ein kleines Angebot für Teams mit Dokumenten-Chaos:
 einen kostenlosen 15-Minuten-Check rund um Rechnungen, Belege, PDFs und strukturierte Ablage.
 
 Wenn das bei euch gerade ein Thema ist, hier ist die Seite:
-https://floridafischet-hash.github.io/docflow-check/index-v2.html
+https://floridafischet-hash.github.io/docflow-check/v2/
 
 Wenn es nicht passt, auch völlig okay.
 

@@ -12,7 +12,7 @@ Heute noch zwei zusätzliche, monetarisierbare Mikro-Angebote live stellen, dami
    - Ziel: höherpreisige Machbarkeitsanfrage
 
 ## Vertriebslogik
-- alle Angebote gehen über Telegram an `@FloriHermesbot`
+- alle Angebote gehen über den Telegram-Kontakt von F&F Investments (`@FloriHermesbot` technisch unverändert)
 - jede Angebotsseite erzeugt lokal eine klare Anfrage-Zusammenfassung
 - jede Anfrage trägt eine eindeutige Quelle / Offer-ID
 - kein zusätzlicher Web-Backend-Aufwand nötig
